@@ -96,8 +96,8 @@ def sexy_play_method(depth, board, prevMoveStack, start_time, time_to_run):
 
 
 prevMoveStack = []
-def takeMove(board, time_to_run, prevMoveStack):
-    start_time=time.time()
+def takeMove(board, time_to_run):
+    start_time = time.time()
 
     for depth in range(1,100):
         out = sexy_play_method(depth, board, prevMoveStack, start_time, time_to_run)
