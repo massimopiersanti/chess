@@ -65,8 +65,8 @@ def sexy_play_method(depth, board, prevMoveStack, start_time, time_to_run):
             completed = False
             return [completed, None]
 
-        move = chess.Move.from_uci(str(x))
 
+        move = chess.Move.from_uci(str(x))
         #this is to speed things up and hopefully take greater value pieces
         fromSquare = move.from_square
         toSquare = move.to_square
@@ -81,18 +81,19 @@ def sexy_play_method(depth, board, prevMoveStack, start_time, time_to_run):
         board.pop()
         if( value > bestMoveValue):
             #stop repeat moves
-            if(len(prevMoveStack) > 2 and move in prevMoveStack):
-                #prevMoveStack[-2] == move
-                #print("move skipped")
+            # if(len(prevMoveStack) > 2 and move in prevMoveStack):
+            #     #prevMoveStack[-2] == move
+            #     #print("move skipped")
 
-                continue
+            #     continue
             
             bestMoveValue = value
             bestMove = move
-    move = chess.Move.from_uci(str(bestMove))
+
+    #move = chess.Move.from_uci(str(bestMove))
 
         
-    return [completed, move]
+    return [completed, bestMove]
 
 
 prevMoveStack = []
@@ -102,7 +103,10 @@ def takeMove(board, time_to_run):
     for depth in range(1,100):
         out = sexy_play_method(depth, board, prevMoveStack, start_time, time_to_run)
         if out[0]: #If completed depth before time limit
+            if(out[1] == None):
+                continue
             best_move=out[1]
+
         if(time.time()-start_time >= time_to_run):
             break
     prevMoveStack.append(best_move)
